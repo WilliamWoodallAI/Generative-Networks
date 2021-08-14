@@ -473,7 +473,7 @@ class ProGANModel():
     
 GAN = ProGANModel()    
 
-GAN.train(249)
+GAN.train()
 
         
         
