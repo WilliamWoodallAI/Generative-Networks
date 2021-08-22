@@ -384,19 +384,19 @@ class ProGANModel():
         batch = []
         for idx in img_idxs:
             img = plt.imread(self.img_dir + self.img_name + f'{idx}' + self.img_ext)
-            img = self.process_img(img)
-            if len(batch) > 0:
-                batch = torch.cat((batch,img), dim=0)
-            else:
-                batch = img
-            batch = transforms.RandomApply(nn.ModuleList([
+            img = self.process_img(img)        
+            img = transforms.RandomApply(nn.ModuleList([
                             #transforms.CenterCrop(112),
                             #transforms.RandomInvert(p=0.2),
                             RandomAffine(180, fill=-1.8),
                             #ColorJitter(brightness=0.1, contrast=0.1, saturation=0.1, hue=0.1),
                             transforms.RandomHorizontalFlip(p=0.5),
                             transforms.RandomVerticalFlip(p=0.5),
-                            ]), p=0.5)(batch)
+                            ]), p=0.5)(img)
+            if len(batch) > 0:
+                batch = torch.cat((batch,img), dim=0)
+            else:
+                batch = img
         #batch = torch.Tensor(batch).to(device)
         return batch
     
